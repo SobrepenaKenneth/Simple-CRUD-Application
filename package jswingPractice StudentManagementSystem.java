@@ -306,34 +306,60 @@ public class StudentManagementSystem extends JFrame {
 	} // Methods below here
 	
 	public void addRecord() {
-		String firstName = txtFirstName.getText();
-		String middleName = txtMiddleName.getText();
-		String lastName = txtLastName.getText();
-		String id = txtID.getText();
-		
-	    String sex = rdbtnMale.isSelected() ? "Male" : "Female";
-		String college = cboCollege.getSelectedItem().toString();
-		String program = cboProgram.getSelectedItem().toString();
-		
-		
-		   String college1 = cboCollege.getSelectedItem().toString();
-		    String program1 = cboProgram.getSelectedItem().toString();
+		String firstName = txtFirstName.getText().trim();
+	    String middleName = txtMiddleName.getText().trim();
+	    String lastName = txtLastName.getText().trim();
+	    String id = txtID.getText().trim();
 
-		   
-		    if (id.isEmpty()) {
-		        id = String.valueOf(idCounter++);
-		    }
+	    String sex = "";
+	    if (rdbtnMale.isSelected()) {
+	        sex = "Male";
+	    } else if (rdbtnFemale.isSelected()) {
+	        sex = "Female";
+	    }
 
-		    // ADD TO TABLE
-		    model.addRow(new Object[]{
-		        id,
-		        lastName,
-		        firstName,
-		        middleName,
-		        sex,
-		        college1,
-		        program1
-		    });
+	    String college = cboCollege.getSelectedItem().toString();
+	    String program = cboProgram.getSelectedItem().toString();
 
+	 
+	    if (firstName.isEmpty() || lastName.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "First Name and Last Name are required!");
+	        return;
+	    }
+
+	   
+	    if (sex.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "Please select sex!");
+	        return;
+	    }
+
+	    if (college.equals("Select College") || program.equals("Select Program")) {
+	        JOptionPane.showMessageDialog(null, "Please select College and Program!");
+	        return;
+	    }
+
+	    if (!id.isEmpty()) {
+	        try {
+	            Integer.parseInt(id);
+	        } catch (NumberFormatException e) {
+	            JOptionPane.showMessageDialog(null, "ID must be a number!");
+	            return;
+	        }
+	    }
+	    
+	    
+	    //ADD TO TABLE
+	    model.addRow(new Object[]{
+	        id,
+	        lastName,
+	        firstName,
+	        middleName,
+	        sex,
+	        college,
+	        program
+	    });
+
+	    JOptionPane.showMessageDialog(null, "Record added successfully!");
 	}
+
 }
