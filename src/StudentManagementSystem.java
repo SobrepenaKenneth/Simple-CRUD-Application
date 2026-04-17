@@ -395,6 +395,9 @@ public class StudentManagementSystem extends JFrame {
 		btnClearSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sorter.setRowFilter(null); // Remove filter, show all rows
+				cboSex.setSelectedIndex(0);
+				cboCollegeFiltering.setSelectedIndex(0);
+				cboProgramFiltering.setSelectedIndex(0);
 			}
 		});
 		btnClearSearch.setForeground(Color.WHITE);
