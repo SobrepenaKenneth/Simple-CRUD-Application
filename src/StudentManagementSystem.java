@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class StudentManagementSystem extends JFrame {
@@ -208,6 +210,18 @@ public class StudentManagementSystem extends JFrame {
 		txtLastName.setBounds(161, 101, 148, 24);
 		txtID.setColumns(10);
 		txtID.setBounds(161, 70, 148, 24);
+		txtID.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isDigit(c)) {
+		            e.consume(); 
+		        }
+		        if (txtID.getText().length() >= 10) {
+		            e.consume();
+		        }
+		    }
+		});
 
 		// ================
 		// JRadioButton
