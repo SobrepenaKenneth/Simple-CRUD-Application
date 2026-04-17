@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 
-public class StudentManagementSystem extends JFrame {
+public class CrudSystem extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -71,7 +71,7 @@ public class StudentManagementSystem extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StudentManagementSystem frame = new StudentManagementSystem();
+					CrudSystem frame = new CrudSystem();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,7 +83,7 @@ public class StudentManagementSystem extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StudentManagementSystem() {
+	public CrudSystem() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1132, 425);
 		contentPane = new JPanel();
@@ -95,7 +95,7 @@ public class StudentManagementSystem extends JFrame {
 		// ================
 		// JLabel
 		// ================
-		lblNewLabel.setIcon(new ImageIcon(StudentManagementSystem.class.getResource("/images/userIconSmall.png")));
+		lblNewLabel.setIcon(new ImageIcon(CrudSystem.class.getResource("/images/userIconSmall.png")));
 		lblNewLabel.setBounds(10, 11, 52, 46);
 		lblNewLabel_1.setForeground(new Color(0, 0, 255));
 		lblNewLabel_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
