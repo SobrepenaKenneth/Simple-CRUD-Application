@@ -307,6 +307,7 @@ public class StudentManagementSystem extends JFrame {
 		cboSex.setBounds(248, 13, 76, 28);
 		cboSex.setModel(new DefaultComboBoxModel<>(new String[] { "-", "MALE", "FEMALE" }));
 		cboSex.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		btnAdd.setToolTipText("Add a new student record");
 
 		// ==============================================
 		// 5. Buttons and their Actions
@@ -320,6 +321,7 @@ public class StudentManagementSystem extends JFrame {
 		btnAdd.setBackground(new Color(0, 0, 205));
 		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.setBounds(16, 335, 101, 28);
+		btnSave.setToolTipText("Save changes to the current record");
 
 		btnSave.setEnabled(false); // Initially disabled until update is triggered
 		btnSave.addActionListener(new ActionListener() {
@@ -331,6 +333,7 @@ public class StudentManagementSystem extends JFrame {
 		btnSave.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		btnSave.setBackground(new Color(34, 139, 34));
 		btnSave.setBounds(314, 335, 120, 28);
+		btnUpdate.setToolTipText("Update the selected student record");
 
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -341,6 +344,7 @@ public class StudentManagementSystem extends JFrame {
 		btnUpdate.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		btnUpdate.setBackground(new Color(205, 133, 63));
 		btnUpdate.setBounds(161, 335, 120, 28);
+		btnDelete.setToolTipText("Delete the selected student record");
 
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -351,6 +355,7 @@ public class StudentManagementSystem extends JFrame {
 		btnDelete.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		btnDelete.setBackground(new Color(165, 42, 42));
 		btnDelete.setBounds(625, 335, 120, 28);
+		btnCancel.setToolTipText("Cancel editing and clear the form");
 
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -470,22 +475,22 @@ public class StudentManagementSystem extends JFrame {
 
 		// Validation
 		if (firstName.isEmpty() || lastName.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "First Name and Last Name are required!");
+			JOptionPane.showMessageDialog(contentPane, "First Name and Last Name are required!");
 			return;
 		}
 		if (sex.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Please select sex!");
+			JOptionPane.showMessageDialog(contentPane, "Please select sex!");
 			return;
 		}
 		if (college.equals("Select College") || program.equals("Select Program")) {
-			JOptionPane.showMessageDialog(null, "Please select College and Program!");
+			JOptionPane.showMessageDialog(contentPane, "Please select College and Program!");
 			return;
 		}
 
 		// Add row to table model with auto-generated ID
 		model.addRow(new Object[] { idCounter++, lastName, firstName, middleName, sex, college, program });
 
-		JOptionPane.showMessageDialog(null, "Record added successfully!");
+		JOptionPane.showMessageDialog(contentPane, "Record added successfully!");
 		records++;
 		lblRecordsValue.setText(String.valueOf(records));
 		lblLastUpdatedValue.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("h:mm a")));
@@ -634,15 +639,15 @@ public class StudentManagementSystem extends JFrame {
 	void deleteRecord() {
 		int row = tblStudentInfo.getSelectedRow();
 		if (row == -1) {
-			JOptionPane.showMessageDialog(null, "Please select a row to delete.", "No Row Selected",
+			JOptionPane.showMessageDialog(contentPane, "Please select a row to delete.", "No Row Selected",
 					JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		// Confirm deletion (0 means "Yes" in JOptionPane)
-		if (JOptionPane.showConfirmDialog(null,
+		if (JOptionPane.showConfirmDialog(contentPane,
 				"Are you sure you want to delete this entry?\n(This action is irreversable!)") == 0) {
 			model.removeRow(row);
-			JOptionPane.showMessageDialog(null, "Entry successfully removed!", "Annihilation Complete",
+			JOptionPane.showMessageDialog(contentPane, "Entry successfully removed!", "Annihilation Complete",
 					JOptionPane.INFORMATION_MESSAGE);
 			records--;
 			lblRecordsValue.setText(String.valueOf(records));
