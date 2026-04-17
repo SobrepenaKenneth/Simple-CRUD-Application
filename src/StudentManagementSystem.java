@@ -308,16 +308,16 @@ public class StudentManagementSystem extends JFrame {
 		
 		// - JTable
 		contentPane.add(scrollPane);
-		panelFiltering.setBounds(587, 26, 521, 45);
+		panelFiltering.setBounds(609, 26, 499, 45);
 		
 		contentPane.add(panelFiltering);
 		panelFiltering.setLayout(null);
-		lblFilterBy.setBounds(15, 9, 81, 34);
+		lblFilterBy.setBounds(0, 0, 81, 34);
 		lblFilterBy.setForeground(Color.BLACK);
 		lblFilterBy.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 		
 		panelFiltering.add(lblFilterBy);
-		cboCollegeFiltering.setBounds(104, 12, 76, 28);
+		cboCollegeFiltering.setBounds(72, 13, 76, 28);
 		
 		
 		// ================
@@ -326,13 +326,13 @@ public class StudentManagementSystem extends JFrame {
 		panelFiltering.add(cboCollegeFiltering);
 		cboCollegeFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-","COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
 		cboCollegeFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		cboProgramFiltering.setBounds(190, 12, 81, 28);
+		cboProgramFiltering.setBounds(158, 13, 81, 28);
 		
 		
 		panelFiltering.add(cboProgramFiltering);
 		cboProgramFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-","BSEED", "BSSED", "BSPSY", "BSA", "BSBA", "BSIE", "BSCpE", "BSECE", "BSIT", "BSCS", "BSN"}));
 		cboProgramFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		cboSex.setBounds(280, 12, 76, 28);
+		cboSex.setBounds(248, 13, 76, 28);
 		panelFiltering.add(cboSex);
 		
 		cboSex.setModel(new DefaultComboBoxModel<>(new String[] {"-", "MALE", "FEMALE"}));
@@ -345,7 +345,7 @@ public class StudentManagementSystem extends JFrame {
 		btnSearch.setForeground(Color.WHITE);
 		btnSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		btnSearch.setBackground(Color.GRAY);
-		btnSearch.setBounds(360, 10, 81, 28);
+		btnSearch.setBounds(328, 11, 81, 28);
 		
 		panelFiltering.add(btnSearch);
 		btnClearSearch.addActionListener(new ActionListener() {
@@ -356,7 +356,7 @@ public class StudentManagementSystem extends JFrame {
 		btnClearSearch.setForeground(Color.WHITE);
 		btnClearSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		btnClearSearch.setBackground(Color.GRAY);
-		btnClearSearch.setBounds(445, 10, 76, 28);
+		btnClearSearch.setBounds(413, 11, 76, 28);
 		
 		panelFiltering.add(btnClearSearch);
 		
