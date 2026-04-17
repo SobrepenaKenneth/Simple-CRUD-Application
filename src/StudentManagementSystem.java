@@ -497,13 +497,14 @@ public class StudentManagementSystem extends JFrame {
     }
 
     //Name validation (NO numbers allowed or else masasaksak)
-    if (!firstName.matches("[a-zA-Z ]+") || 
-        !lastName.matches("[a-zA-Z ]+") || 
-        (!middleName.isEmpty() && !middleName.matches("[a-zA-Z ]+"))) {
-        
-        JOptionPane.showMessageDialog(contentPane, "Names should contain letters only!");
-        return;
-    }
+   if (!firstName.matches("[\\p{L} .'-]+") || 
+    !lastName.matches("[\\p{L} .'-]+") || 
+    (!middleName.isEmpty() && !middleName.matches("[\\p{L} .'-]+"))) {
+    
+    JOptionPane.showMessageDialog(contentPane, 
+        "Names should contain letters only (no numbers).");
+    return;
+}
 
     // Sex validation (better check i will stab thee)
     if (!rdbtnMale.isSelected() && !rdbtnFemale.isSelected()) {
