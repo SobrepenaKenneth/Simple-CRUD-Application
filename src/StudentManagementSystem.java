@@ -13,8 +13,11 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 
-public class CrudSystem extends JFrame {
+public class StudentManagementSystem extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -60,9 +63,8 @@ public class CrudSystem extends JFrame {
 	
 	// JSeperator
 	private final JSeparator separator = new JSeparator();
-	
-	// JTable
-	private final JTable table = new JTable();
+	private final JScrollPane scrollPane = new JScrollPane();
+	private final JTable tblStudentInfo = new JTable();
 
 	/**
 	 * Launch the application.
@@ -71,7 +73,7 @@ public class CrudSystem extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CrudSystem frame = new CrudSystem();
+					StudentManagementSystem frame = new StudentManagementSystem();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,7 +85,7 @@ public class CrudSystem extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CrudSystem() {
+	public StudentManagementSystem() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1132, 425);
 		contentPane = new JPanel();
@@ -95,7 +97,7 @@ public class CrudSystem extends JFrame {
 		// ================
 		// JLabel
 		// ================
-		lblNewLabel.setIcon(new ImageIcon(CrudSystem.class.getResource("/images/userIconSmall.png")));
+		lblNewLabel.setIcon(new ImageIcon(StudentManagementSystem.class.getResource("/images/userIconSmall.png")));
 		lblNewLabel.setBounds(10, 11, 52, 46);
 		lblNewLabel_1.setForeground(new Color(0, 0, 255));
 		lblNewLabel_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
@@ -160,9 +162,11 @@ public class CrudSystem extends JFrame {
 		// ================
 		// JComboBox
 		// ================
+		cboCollege.setModel(new DefaultComboBoxModel(new String[] {"COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
 		cboCollege.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		cboCollege.setBounds(161, 240, 148, 28);
 		
+		cboProgram.setModel(new DefaultComboBoxModel(new String[] {"BSEED", "BSSED", "BSPSY", "BSA", "BSBA", "BSIE", "BSCpE", "BSECE", "BSIT", "BSCS", "BSN"}));
 		cboProgram.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		cboProgram.setBounds(161, 285, 148, 28);
 		
@@ -198,11 +202,6 @@ public class CrudSystem extends JFrame {
 		// JSeperator
 		// ================
 		separator.setBounds(-37, 321, 1186, 6);
-		
-		// ================
-		// JTable
-		// ================
-		table.setBounds(345, 75, 761, 235);
 		
 		// ================
 		// ContentPane
@@ -249,9 +248,41 @@ public class CrudSystem extends JFrame {
 		contentPane.add(btnUpdate);
 		contentPane.add(btnDelete);
 		contentPane.add(btnCancel);
+		scrollPane.setBounds(345, 78, 763, 227);
 		
 		// - JTable
-		contentPane.add(table);
+		contentPane.add(scrollPane);
+		tblStudentInfo.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"ID", "LAST NAME", "FIRST NAME", "MIDDLE NAME", "SEX", "COLLEGE", "PROGRAM"
+			}
+		));
+		tblStudentInfo.getColumnModel().getColumn(0).setPreferredWidth(35);
+		tblStudentInfo.getColumnModel().getColumn(1).setPreferredWidth(115);
+		tblStudentInfo.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tblStudentInfo.getColumnModel().getColumn(3).setPreferredWidth(133);
+		tblStudentInfo.getColumnModel().getColumn(4).setPreferredWidth(86);
+		tblStudentInfo.getColumnModel().getColumn(5).setPreferredWidth(89);
+		tblStudentInfo.getColumnModel().getColumn(6).setPreferredWidth(98);
+		
+		scrollPane.setViewportView(tblStudentInfo);
 		
 	} // Methods below here
 }
