@@ -252,9 +252,13 @@ public class StudentManagementSystem extends JFrame {
 		// JSeperator
 		// ================
 		separator.setBounds(-37, 321, 1186, 6);
+		tblStudentInfo.setShowVerticalLines(false);
+		tblStudentInfo.setShowHorizontalLines(false);
+		tblStudentInfo.setFillsViewportHeight(true);
 		
 		// ================
 		tblStudentInfo.setRowSorter(sorter);
+		tblStudentInfo.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tblStudentInfo);
 		
 		// ================
