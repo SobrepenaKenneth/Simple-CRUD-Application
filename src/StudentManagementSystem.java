@@ -105,7 +105,7 @@ public class StudentManagementSystem extends JFrame {
 	};
 
 	// Data counters
-	private int idCounter = 0; // Auto-increment ID for new records
+	private int idCounter = 1; // Auto-increment ID for new records
 	private int records = 0; // Total number of records currently in table
 
 	// Filtering panel and components
