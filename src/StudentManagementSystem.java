@@ -125,7 +125,7 @@ public class StudentManagementSystem extends JFrame {
 	 * Logic: show rows where college and program match exactly, and sex matches
 	 * unless "-" (any) is selected.
 	 */
-	private RowFilter<DefaultTableModel, Integer> rf = new RowFilter<>() {
+	private RowFilter<DefaultTableModel, Integer> rf = new RowFilter<DefaultTableModel, Integer>() {
 		@SuppressWarnings("rawtypes")
 		@Override
 		public boolean include(Entry entry) {
@@ -482,37 +482,49 @@ public class StudentManagementSystem extends JFrame {
 	 * Auto-generates ID, increments counter, updates total records and timestamp.
 	 */
 	public void addRecord() {
-		String firstName = txtFirstName.getText().trim();
-		String middleName = txtMiddleName.getText().trim();
-		String lastName = txtLastName.getText().trim();
+    String firstName = txtFirstName.getText().trim();
+    String middleName = txtMiddleName.getText().trim();
+    String lastName = txtLastName.getText().trim();
 
-		String sex = rdbtnMale.isSelected() ? "Male" : "Female";
-		String college = cboCollege.getSelectedItem().toString();
-		String program = cboProgram.getSelectedItem().toString();
+    String sex = rdbtnMale.isSelected() ? "Male" : "Female";
+    String college = cboCollege.getSelectedItem().toString();
+    String program = cboProgram.getSelectedItem().toString();
 
-		// Validation
-		if (firstName.isEmpty() || lastName.isEmpty()) {
-			JOptionPane.showMessageDialog(contentPane, "First Name and Last Name are required!");
-			return;
-		}
-		if (sex.isEmpty()) {
-			JOptionPane.showMessageDialog(contentPane, "Please select sex!");
-			return;
-		}
-		if (college.equals("Select College") || program.equals("Select Program")) {
-			JOptionPane.showMessageDialog(contentPane, "Please select College and Program!");
-			return;
-		}
+    // Empty validation
+    if (firstName.isEmpty() || lastName.isEmpty()) {
+        JOptionPane.showMessageDialog(contentPane, "First Name and Last Name are required!");
+        return;
+    }
 
-		// Add row to table model with auto-generated ID
-		model.addRow(new Object[] { idCounter++, lastName, firstName, middleName, sex, college, program });
+    //Name validation (NO numbers allowed or else masasaksak)
+    if (!firstName.matches("[a-zA-Z ]+") || 
+        !lastName.matches("[a-zA-Z ]+") || 
+        (!middleName.isEmpty() && !middleName.matches("[a-zA-Z ]+"))) {
+        
+        JOptionPane.showMessageDialog(contentPane, "Names should contain letters only!");
+        return;
+    }
 
-		JOptionPane.showMessageDialog(contentPane, "Record added successfully!");
-		records++;
-		lblRecordsValue.setText(String.valueOf(records));
-		lblLastUpdatedValue.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("h:mm a")));
-	}
+    // Sex validation (better check i will stab thee)
+    if (!rdbtnMale.isSelected() && !rdbtnFemale.isSelected()) {
+        JOptionPane.showMessageDialog(contentPane, "Please select sex!");
+        return;
+    }
 
+    // ComboBox validation
+    if (college.equals("Select College") || program.equals("Select Program")) {
+        JOptionPane.showMessageDialog(contentPane, "Please select College and Program!");
+        return;
+    }
+
+    // Add row
+    model.addRow(new Object[] { idCounter++, lastName, firstName, middleName, sex, college, program });
+
+    JOptionPane.showMessageDialog(contentPane, "Record added successfully!");
+    records++;
+    lblRecordsValue.setText(String.valueOf(records));
+    lblLastUpdatedValue.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("h:mm a")));
+}
 	/**
 	 * Dynamically updates the program combo box based on selected college. 
 	 * Used both for data entry and filtering combos.
