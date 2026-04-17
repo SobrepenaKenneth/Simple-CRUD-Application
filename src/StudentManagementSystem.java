@@ -25,7 +25,7 @@ public class StudentManagementSystem extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	
+
 	// JLabel
 	private final JLabel lblUserProfile = new JLabel("");
 	private final JLabel lblStudentInformation = new JLabel("STUDENT INFORMATION");
@@ -43,44 +43,48 @@ public class StudentManagementSystem extends JFrame {
 	private final JLabel lblLastUpdatedValue = new JLabel("-");
 	private final JLabel lblStudentRecords = new JLabel("STUDENT RECORDS");
 	private final JLabel lblDescription = new JLabel("Manage student information easily");
-	
+	private final JLabel lblFilterBy = new JLabel("Filter By:");
+
 	// JTextField
 	private final JTextField txtMiddleName = new JTextField();
 	private final JTextField txtFirstName = new JTextField();
 	private final JTextField txtLastName = new JTextField();
 	private final JTextField txtID = new JTextField();
-	
+
 	// JRadioButton
 	private final JRadioButton rdbtnMale = new JRadioButton("MALE");
 	private final JRadioButton rdbtnFemale = new JRadioButton("FEMALE");
-	
+
 	// JComboBox
 	private final JComboBox<String> cboCollegeFiltering = new JComboBox<String>();
 	private final JComboBox<String> cboProgramFiltering = new JComboBox<String>();
 	private final JComboBox<String> cboCollege = new JComboBox<String>();
 	private final JComboBox<String> cboProgram = new JComboBox<String>();
 	private final JComboBox<String> cboSex = new JComboBox<String>();
-	
+
 	// JButton
 	private final JButton btnAdd = new JButton("NEW");
 	private final JButton btnSave = new JButton("SAVE");
 	private final JButton btnUpdate = new JButton("UPDATE");
 	private final JButton btnDelete = new JButton("DELETE");
 	private final JButton btnCancel = new JButton("CANCEL");
-	
+	private final JButton btnSearch = new JButton("SEARCH");
+
 	// JSeperator
 	private final JSeparator separator = new JSeparator();
+
+	// JScrollPane
 	private final JScrollPane scrollPane = new JScrollPane();
+
+	// DefaultTableModel
 	private DefaultTableModel model = new DefaultTableModel(0, 7);
+
+	// JTable
 	private JTable tblStudentInfo = new JTable(model);
-	
+
 	private int idCounter;
 	private final JPanel panelFiltering = new JPanel();
-	private final JLabel lblFilterBy = new JLabel("Filter By:");
-	private final JButton btnSearch = new JButton("SEARCH");
-	
-	
-	
+
 	private TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
 	private RowFilter<DefaultTableModel, Integer> rf = new RowFilter<>() {
 
@@ -89,14 +93,14 @@ public class StudentManagementSystem extends JFrame {
 			String college = cboCollegeFiltering.getSelectedItem().toString();
 			String program = cboProgramFiltering.getSelectedItem().toString();
 			String sex = cboSex.getSelectedItem().toString();
-			return entry.getStringValue(5).contains(college) || entry.getStringValue(6).contains(program) || entry.getStringValue(4).contains(sex);
-			
+			return entry.getStringValue(5).contains(college) || entry.getStringValue(6).contains(program)
+					|| entry.getStringValue(4).contains(sex);
+
 		}
-		
-		
+
 	};
 	private final JButton btnClearSearch = new JButton("CLEAR");
-	
+
 	private int selectedRow = -1;
 
 	/**
@@ -126,14 +130,14 @@ public class StudentManagementSystem extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		// Note iba code generation preference ko -ken
-		
+
 		// ================
 		// JLabel
 		// ================
 		// - Image Icon
 //		lblUserProfile.setIcon(new ImageIcon(StudentManagementSystem.class.getResource("/images/userIconSmall.png")));
 //		lblUserProfile.setBounds(10, 11, 52, 46);
-		
+
 		// - Header label
 		lblStudentInformation.setForeground(new Color(0, 0, 255));
 		lblStudentInformation.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
@@ -188,7 +192,11 @@ public class StudentManagementSystem extends JFrame {
 		// - Description
 		lblDescription.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		lblDescription.setBounds(345, 46, 242, 21);
-	
+		// - Filter By
+		lblFilterBy.setBounds(0, 0, 81, 34);
+		lblFilterBy.setForeground(Color.BLACK);
+		lblFilterBy.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+
 		// ================
 		// JTextField
 		// ================
@@ -200,7 +208,7 @@ public class StudentManagementSystem extends JFrame {
 		txtLastName.setBounds(161, 101, 148, 24);
 		txtID.setColumns(10);
 		txtID.setBounds(161, 70, 148, 24);
-		
+
 		// ================
 		// JRadioButton
 		// ================
@@ -208,6 +216,10 @@ public class StudentManagementSystem extends JFrame {
 		rdbtnMale.setBounds(95, 199, 109, 23);
 		rdbtnFemale.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		rdbtnFemale.setBounds(200, 199, 109, 23);
+
+		// ================
+		// JComboBox
+		// ================
 		cboCollege.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
@@ -215,15 +227,15 @@ public class StudentManagementSystem extends JFrame {
 				filterCollegeBox(origin);
 			}
 		});
-		
-		cboCollege.setModel(new DefaultComboBoxModel<>(new String[] {"COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
+
+		cboCollege.setModel(new DefaultComboBoxModel<>(new String[] { "COED", "CAS", "CBAA", "COE", "CCS", "CON" }));
 		cboCollege.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		cboCollege.setBounds(161, 240, 148, 28);
-		
-		cboProgram.setModel(new DefaultComboBoxModel<>(new String[] {"BSEED", "BSSED"}));
+
+		cboProgram.setModel(new DefaultComboBoxModel<>(new String[] { "BSEED", "BSSED" }));
 		cboProgram.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		cboProgram.setBounds(161, 285, 148, 28);
-		
+
 		// ================
 		// JButton
 		// ================
@@ -236,7 +248,7 @@ public class StudentManagementSystem extends JFrame {
 		btnAdd.setBackground(new Color(0, 0, 205));
 		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.setBounds(16, 335, 101, 28);
-		
+
 		btnSave.setForeground(Color.WHITE);
 		btnSave.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		btnSave.setBackground(new Color(34, 139, 34));
@@ -244,44 +256,103 @@ public class StudentManagementSystem extends JFrame {
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateRecord();
-				
 			}
 		});
-		
+
 		btnUpdate.setForeground(Color.WHITE);
 		btnUpdate.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		btnUpdate.setBackground(new Color(205, 133, 63));
 		btnUpdate.setBounds(314, 335, 120, 28);
-		
+
 		btnDelete.setForeground(Color.WHITE);
 		btnDelete.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		btnDelete.setBackground(new Color(165, 42, 42));
 		btnDelete.setBounds(467, 335, 120, 28);
-		
+
 		btnCancel.setForeground(Color.WHITE);
 		btnCancel.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		btnCancel.setBackground(new Color(128, 128, 128));
 		btnCancel.setBounds(625, 335, 120, 28);
 		
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sorter.setRowFilter(rf);
+			}
+		});
+		btnSearch.setForeground(Color.WHITE);
+		btnSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		btnSearch.setBackground(Color.GRAY);
+		btnSearch.setBounds(328, 11, 81, 28);
+		
+		btnClearSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sorter.setRowFilter(null);
+			}
+		});
+		btnClearSearch.setForeground(Color.WHITE);
+		btnClearSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		btnClearSearch.setBackground(Color.GRAY);
+		btnClearSearch.setBounds(413, 11, 76, 28);
+
 		// ================
 		// JSeperator
 		// ================
 		separator.setBounds(-37, 321, 1186, 6);
+
+		// ================
+		// JTable
+		// ================
 		tblStudentInfo.setShowVerticalLines(false);
 		tblStudentInfo.setShowHorizontalLines(false);
 		tblStudentInfo.setFillsViewportHeight(true);
-		
-		// ================
 		tblStudentInfo.setRowSorter(sorter);
 		tblStudentInfo.getTableHeader().setReorderingAllowed(false);
 		scrollPane.setViewportView(tblStudentInfo);
+
+		model.setColumnIdentifiers(
+				new String[] { "ID", "LAST NAME", "FIRST NAME", "MIDDLE NAME", "SEX", "COLLEGE", "PROGRAM" });
+
+		// ================
+		// JComboBox
+		// ================
+		cboCollegeFiltering.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				@SuppressWarnings("unchecked")
+				JComboBox<String> origin = (JComboBox<String>) e.getSource();
+				filterCollegeBox(origin);
+
+			}
+		});
+		cboCollegeFiltering.setBounds(72, 13, 76, 28);
+		cboCollegeFiltering
+				.setModel(new DefaultComboBoxModel<>(new String[] { "-", "COED", "CAS", "CBAA", "COE", "CCS", "CON" }));
+		cboCollegeFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		cboProgramFiltering.setBounds(158, 13, 81, 28);
+		cboProgramFiltering.setModel(new DefaultComboBoxModel<>(new String[] { "-" }));
+		cboProgramFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		cboSex.setBounds(248, 13, 76, 28);
+		cboSex.setModel(new DefaultComboBoxModel<>(new String[] { "-", "MALE", "FEMALE" }));
+		cboSex.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+
+		// ================
+		// Panel Filtering
+		// ================
+		panelFiltering.add(cboCollegeFiltering);
+		panelFiltering.setBounds(609, 26, 499, 45);
+		panelFiltering.setLayout(null);
+		panelFiltering.add(lblFilterBy);
+		panelFiltering.add(cboProgramFiltering);
+		panelFiltering.add(cboSex);
+		panelFiltering.add(btnSearch);
+		panelFiltering.add(btnClearSearch);
 		
 		// ================
 		// ContentPane
 		// ================
 		// - JSeperator
 		contentPane.add(separator);
-		
+
 		// - Labels
 		contentPane.add(lblUserProfile);
 		contentPane.add(lblStudentInformation);
@@ -300,19 +371,19 @@ public class StudentManagementSystem extends JFrame {
 		contentPane.add(lblLastUpdatedValue);
 		contentPane.add(lblStudentRecords);
 		contentPane.add(lblDescription);
-		
+
 		// - Radio Button
 		contentPane.add(txtMiddleName);
 		contentPane.add(rdbtnMale);
 		contentPane.add(rdbtnFemale);
 		contentPane.add(cboCollege);
 		contentPane.add(cboProgram);
-		
+
 		// - JTextField
 		contentPane.add(txtID);
 		contentPane.add(txtFirstName);
 		contentPane.add(txtLastName);
-		
+
 		// - JButton
 		contentPane.add(btnAdd);
 		contentPane.add(btnSave);
@@ -320,106 +391,42 @@ public class StudentManagementSystem extends JFrame {
 		contentPane.add(btnDelete);
 		contentPane.add(btnCancel);
 		scrollPane.setBounds(345, 78, 763, 227);
-		
+
 		// - JTable
 		contentPane.add(scrollPane);
-		model.setColumnIdentifiers(new String[] {
-				"ID", "LAST NAME", "FIRST NAME", "MIDDLE NAME", "SEX", "COLLEGE", "PROGRAM"
-			});
-		panelFiltering.setBounds(609, 26, 499, 45);
-		
 		contentPane.add(panelFiltering);
-		panelFiltering.setLayout(null);
-		lblFilterBy.setBounds(0, 0, 81, 34);
-		lblFilterBy.setForeground(Color.BLACK);
-		lblFilterBy.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-		
-		panelFiltering.add(lblFilterBy);
-		cboCollegeFiltering.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-				@SuppressWarnings("unchecked")
-				JComboBox<String> origin = (JComboBox<String>) e.getSource();
-				filterCollegeBox(origin);
-			
-			}
-		});
-		cboCollegeFiltering.setBounds(72, 13, 76, 28);
-		
-		
-		// ================
-		// JComboBox
-		// ================
-		panelFiltering.add(cboCollegeFiltering);
-		cboCollegeFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-","COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
-		cboCollegeFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		cboProgramFiltering.setBounds(158, 13, 81, 28);
-		
-		
-		panelFiltering.add(cboProgramFiltering);
-		cboProgramFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-"}));
-		cboProgramFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		cboSex.setBounds(248, 13, 76, 28);
-		panelFiltering.add(cboSex);
-		
-		cboSex.setModel(new DefaultComboBoxModel<>(new String[] {"-", "MALE", "FEMALE"}));
-		cboSex.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sorter.setRowFilter(rf);
-			}
-		});
-		btnSearch.setForeground(Color.WHITE);
-		btnSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
-		btnSearch.setBackground(Color.GRAY);
-		btnSearch.setBounds(328, 11, 81, 28);
-		
-		panelFiltering.add(btnSearch);
-		btnClearSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sorter.setRowFilter(null);
-			}
-		});
-		btnClearSearch.setForeground(Color.WHITE);
-		btnClearSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
-		btnClearSearch.setBackground(Color.GRAY);
-		btnClearSearch.setBounds(413, 11, 76, 28);
-		
-		panelFiltering.add(btnClearSearch);
-		
+
 	} // Methods below here
-	
+
 	void addRecord() {
-		
+
 		String firstName = txtFirstName.getText();
 		String middleName = txtMiddleName.getText();
 		String lastName = txtLastName.getText();
-		
-	    String sex = rdbtnMale.isSelected() ? "Male" : "Female";
+
+		String sex = rdbtnMale.isSelected() ? "Male" : "Female";
 		String college = cboCollege.getSelectedItem().toString();
 		String program = cboProgram.getSelectedItem().toString();
-		
-		//Add rows man
-		 model.addRow(new Object[]{
-			        idCounter++, lastName, firstName, middleName, sex, college, program
-			    }); 
-		 System.out.print("reached");
+
+		// Add rows man
+		model.addRow(new Object[] { idCounter++, lastName, firstName, middleName, sex, college, program });
+		System.out.print("reached");
 	}
-	
+
 	void filterCollegeBox(JComboBox<String> origin) {
 		String selected = origin.getSelectedItem().toString();
 		JComboBox<String> target = (origin == cboCollege) ? cboProgram : cboProgramFiltering;
 		target.removeAllItems();
-		switch(selected) {
+		switch (selected) {
 		case "COED":
 			target.addItem("BSEED");
 			target.addItem("BSSED");
 			break;
-			
+
 		case "CAS":
 			target.addItem("BSPSY");
 			break;
-		
+
 		case "CBAA":
 			target.addItem("BSA");
 			target.addItem("BSBA");
@@ -440,39 +447,40 @@ public class StudentManagementSystem extends JFrame {
 			target.addItem("-");
 			break;
 		}
-		
+
 	}
-	
-	
+
 	public void updateRecord() {
-		
-		// 1ST CLICK ON THE UPDATE BUTTON LOADS THE SELECTED ROW INTO THE FORM IN ORDER FOR U TO EDIT
+
+		// 1ST CLICK ON THE UPDATE BUTTON LOADS THE SELECTED ROW INTO THE FORM IN ORDER
+		// FOR U TO EDIT
 		if (selectedRow == -1) {
 			int row = tblStudentInfo.getSelectedRow();
-			
+
 			// WARNS THE USER IF THEY CLICKED UPDATE WITHOUT SELECTING A ROW FIRST
 			if (row == 01) {
-				
-				javax.swing.JOptionPane.showMessageDialog(null, "Please select a row to update.", "No Row Selected", javax.swing.JOptionPane.WARNING_MESSAGE);
+
+				javax.swing.JOptionPane.showMessageDialog(null, "Please select a row to update.", "No Row Selected",
+						javax.swing.JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
+
 			selectedRow = row;
-			
-			//LOADS THE SELECTED ROW DATA INTO THE FORM TXT FIELDS
+
+			// LOADS THE SELECTED ROW DATA INTO THE FORM TXT FIELDS
 			txtID.setText(model.getValueAt(row, 0).toString());
 			txtLastName.setText(model.getValueAt(row, 1).toString());
 			txtFirstName.setText(model.getValueAt(row, 2).toString());
 			txtMiddleName.setText(model.getValueAt(row, 2).toString());
-			
+
 			String sex = model.getValueAt(row, 4).toString();
 			rdbtnMale.setSelected(sex.equals("Male"));
 			rdbtnFemale.setSelected(sex.equals("Female"));
-			
+
 			cboCollege.setSelectedItem(model.getValueAt(row, 5).toString());
 			cboProgram.setSelectedItem(model.getValueAt(row, 6).toString());
-			
-			//2ND CLICK WILL SAVE THE EDITED DATA TO THE JTABLE
+
+			// 2ND CLICK WILL SAVE THE EDITED DATA TO THE JTABLE
 		} else {
 			String id = txtID.getText();
 			String lastName = txtLastName.getText();
@@ -481,7 +489,7 @@ public class StudentManagementSystem extends JFrame {
 			String sex = rdbtnMale.isSelected() ? "Male" : "Female";
 			String college = cboCollege.getSelectedItem().toString();
 			String program = cboProgram.getSelectedItem().toString();
-			
+
 			model.setValueAt(id, selectedRow, 0);
 			model.setValueAt(lastName, selectedRow, 1);
 			model.setValueAt(firstName, selectedRow, 2);
@@ -489,16 +497,13 @@ public class StudentManagementSystem extends JFrame {
 			model.setValueAt(sex, selectedRow, 4);
 			model.setValueAt(college, selectedRow, 5);
 			model.setValueAt(program, selectedRow, 6);
-			
-			//UPDATES THE LAST UPDATED LABEL
-			lblLastUpdatedValue.setText(String.valueOf(selectedRow + 1));
-			
-			//CLEARS THE REMEMBERED ROW
-			selectedRow = -1;
-			
-		}
-		
-	}
 
-	
+			// UPDATES THE LAST UPDATED LABEL
+			lblLastUpdatedValue.setText(String.valueOf(selectedRow + 1));
+
+			// CLEARS THE REMEMBERED ROW
+			selectedRow = -1;
+
+		}
+	}
 }
