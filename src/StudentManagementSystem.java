@@ -308,7 +308,7 @@ public class StudentManagementSystem extends JFrame {
 		
 		// - JTable
 		contentPane.add(scrollPane);
-		panelFiltering.setBounds(609, 26, 499, 45);
+		panelFiltering.setBounds(588, 26, 520, 45);
 		
 		contentPane.add(panelFiltering);
 		panelFiltering.setLayout(null);
