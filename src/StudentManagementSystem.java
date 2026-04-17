@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -15,7 +16,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class StudentManagementSystem extends JFrame {
 
@@ -51,8 +55,11 @@ public class StudentManagementSystem extends JFrame {
 	private final JRadioButton rdbtnFemale = new JRadioButton("FEMALE");
 	
 	// JComboBox
-	private final JComboBox cboCollege = new JComboBox();
-	private final JComboBox cboProgram = new JComboBox();
+	private final JComboBox<String> cboCollegeFiltering = new JComboBox<String>();
+	private final JComboBox<String> cboProgramFiltering = new JComboBox<String>();
+	private final JComboBox<String> cboCollege = new JComboBox<String>();
+	private final JComboBox<String> cboProgram = new JComboBox<String>();
+	private final JComboBox<String> cboSex = new JComboBox<String>();
 	
 	// JButton
 	private final JButton btnAdd = new JButton("NEW");
@@ -64,7 +71,31 @@ public class StudentManagementSystem extends JFrame {
 	// JSeperator
 	private final JSeparator separator = new JSeparator();
 	private final JScrollPane scrollPane = new JScrollPane();
-	private final JTable tblStudentInfo = new JTable();
+	private DefaultTableModel model = new DefaultTableModel(0, 7);
+	private JTable tblStudentInfo = new JTable(model);
+	
+	private int idCounter;
+	private final JPanel panelFiltering = new JPanel();
+	private final JLabel lblFilterBy = new JLabel("Filter By:");
+	private final JButton btnSearch = new JButton("SEARCH");
+	
+	
+	
+	private TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+	private RowFilter<DefaultTableModel, Integer> rf = new RowFilter<>() {
+
+		@Override
+		public boolean include(Entry entry) {
+			String college = cboCollegeFiltering.getSelectedItem().toString();
+			String program = cboProgramFiltering.getSelectedItem().toString();
+			String sex = cboSex.getSelectedItem().toString();
+			return entry.getStringValue(5).contains(college) || entry.getStringValue(6).contains(program) || entry.getStringValue(4).contains(sex);
+			
+		}
+		
+		
+	};
+	private final JButton btnClearSearch = new JButton("CLEAR");
 
 	/**
 	 * Launch the application.
@@ -176,14 +207,11 @@ public class StudentManagementSystem extends JFrame {
 		rdbtnFemale.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		rdbtnFemale.setBounds(200, 199, 109, 23);
 		
-		// ================
-		// JComboBox
-		// ================
-		cboCollege.setModel(new DefaultComboBoxModel(new String[] {"COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
+		cboCollege.setModel(new DefaultComboBoxModel<>(new String[] {"COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
 		cboCollege.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		cboCollege.setBounds(161, 240, 148, 28);
 		
-		cboProgram.setModel(new DefaultComboBoxModel(new String[] {"BSEED", "BSSED", "BSPSY", "BSA", "BSBA", "BSIE", "BSCpE", "BSECE", "BSIT", "BSCS", "BSN"}));
+		cboProgram.setModel(new DefaultComboBoxModel<>(new String[] {"BSEED", "BSSED", "BSPSY", "BSA", "BSBA", "BSIE", "BSCpE", "BSECE", "BSIT", "BSCS", "BSN"}));
 		cboProgram.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		cboProgram.setBounds(161, 285, 148, 28);
 		
@@ -191,6 +219,11 @@ public class StudentManagementSystem extends JFrame {
 		// JButton
 		// ================
 		btnAdd.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addRecord();
+			}
+		});
 		btnAdd.setBackground(new Color(0, 0, 205));
 		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.setBounds(16, 335, 101, 28);
@@ -221,39 +254,7 @@ public class StudentManagementSystem extends JFrame {
 		separator.setBounds(-37, 321, 1186, 6);
 		
 		// ================
-		// JTable
-		// ================
-		tblStudentInfo.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"ID", "LAST NAME", "FIRST NAME", "MIDDLE NAME", "SEX", "COLLEGE", "PROGRAM"
-				}
-			));
-		
-		tblStudentInfo.getColumnModel().getColumn(0).setPreferredWidth(35);
-		tblStudentInfo.getColumnModel().getColumn(1).setPreferredWidth(115);
-		tblStudentInfo.getColumnModel().getColumn(2).setPreferredWidth(120);
-		tblStudentInfo.getColumnModel().getColumn(3).setPreferredWidth(133);
-		tblStudentInfo.getColumnModel().getColumn(4).setPreferredWidth(86);
-		tblStudentInfo.getColumnModel().getColumn(5).setPreferredWidth(89);
-		tblStudentInfo.getColumnModel().getColumn(6).setPreferredWidth(98);
-		
+		tblStudentInfo.setRowSorter(sorter);
 		scrollPane.setViewportView(tblStudentInfo);
 		
 		// ================
@@ -285,8 +286,6 @@ public class StudentManagementSystem extends JFrame {
 		contentPane.add(txtMiddleName);
 		contentPane.add(rdbtnMale);
 		contentPane.add(rdbtnFemale);
-		
-		// - Combo Box
 		contentPane.add(cboCollege);
 		contentPane.add(cboProgram);
 		
@@ -305,6 +304,75 @@ public class StudentManagementSystem extends JFrame {
 		
 		// - JTable
 		contentPane.add(scrollPane);
+		panelFiltering.setBounds(609, 26, 499, 45);
+		
+		contentPane.add(panelFiltering);
+		panelFiltering.setLayout(null);
+		lblFilterBy.setBounds(0, 0, 81, 34);
+		lblFilterBy.setForeground(Color.BLACK);
+		lblFilterBy.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		
+		panelFiltering.add(lblFilterBy);
+		cboCollegeFiltering.setBounds(72, 13, 76, 28);
+		
+		
+		// ================
+		// JComboBox
+		// ================
+		panelFiltering.add(cboCollegeFiltering);
+		cboCollegeFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-","COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
+		cboCollegeFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		cboProgramFiltering.setBounds(158, 13, 81, 28);
+		
+		
+		panelFiltering.add(cboProgramFiltering);
+		cboProgramFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-","BSEED", "BSSED", "BSPSY", "BSA", "BSBA", "BSIE", "BSCpE", "BSECE", "BSIT", "BSCS", "BSN"}));
+		cboProgramFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		cboSex.setBounds(248, 13, 76, 28);
+		panelFiltering.add(cboSex);
+		
+		cboSex.setModel(new DefaultComboBoxModel<>(new String[] {"-", "MALE", "FEMALE"}));
+		cboSex.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sorter.setRowFilter(rf);
+			}
+		});
+		btnSearch.setForeground(Color.WHITE);
+		btnSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		btnSearch.setBackground(Color.GRAY);
+		btnSearch.setBounds(328, 11, 81, 28);
+		
+		panelFiltering.add(btnSearch);
+		btnClearSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sorter.setRowFilter(null);
+			}
+		});
+		btnClearSearch.setForeground(Color.WHITE);
+		btnClearSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
+		btnClearSearch.setBackground(Color.GRAY);
+		btnClearSearch.setBounds(413, 11, 76, 28);
+		
+		panelFiltering.add(btnClearSearch);
 		
 	} // Methods below here
+	
+	public void addRecord() {
+		
+		String firstName = txtFirstName.getText();
+		String middleName = txtMiddleName.getText();
+		String lastName = txtLastName.getText();
+		
+	    String sex = rdbtnMale.isSelected() ? "Male" : "Female";
+		String college = cboCollege.getSelectedItem().toString();
+		String program = cboProgram.getSelectedItem().toString();
+		
+		//Add rows man
+		 model.addRow(new Object[]{
+			        idCounter++, lastName, firstName, middleName, sex, college, program
+			    }); 
+		 System.out.print("reached");
+	}
+	
 }
