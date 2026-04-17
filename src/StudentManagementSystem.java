@@ -79,11 +79,8 @@ public class StudentManagementSystem extends JFrame {
 	private final JLabel lblFilterBy = new JLabel("Filter By:");
 	private final JButton btnSearch = new JButton("SEARCH");
 	
-	
-	
 	private TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
 	private RowFilter<DefaultTableModel, Integer> rf = new RowFilter<>() {
-
 		@Override
 		public boolean include(Entry entry) {
 			String college = cboCollegeFiltering.getSelectedItem().toString();
@@ -92,8 +89,6 @@ public class StudentManagementSystem extends JFrame {
 			return entry.getStringValue(5).contains(college) || entry.getStringValue(6).contains(program) || entry.getStringValue(4).contains(sex);
 			
 		}
-		
-		
 	};
 	private final JButton btnClearSearch = new JButton("CLEAR");
 
@@ -186,6 +181,10 @@ public class StudentManagementSystem extends JFrame {
 		// - Description
 		lblDescription.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		lblDescription.setBounds(345, 46, 242, 21);
+		// - Filter By
+		lblFilterBy.setBounds(15, 5, 76, 31);
+		lblFilterBy.setForeground(Color.BLACK);
+		lblFilterBy.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 	
 		// ================
 		// JTextField
@@ -312,12 +311,10 @@ public class StudentManagementSystem extends JFrame {
 		
 		contentPane.add(panelFiltering);
 		panelFiltering.setLayout(null);
-		lblFilterBy.setBounds(0, 0, 81, 34);
-		lblFilterBy.setForeground(Color.BLACK);
-		lblFilterBy.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		
 		
 		panelFiltering.add(lblFilterBy);
-		cboCollegeFiltering.setBounds(72, 13, 76, 28);
+		cboCollegeFiltering.setBounds(96, 6, 76, 28);
 		
 		
 		// ================
@@ -326,13 +323,13 @@ public class StudentManagementSystem extends JFrame {
 		panelFiltering.add(cboCollegeFiltering);
 		cboCollegeFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-","COED", "CAS", "CBAA", "COE", "CCS", "CON"}));
 		cboCollegeFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		cboProgramFiltering.setBounds(158, 13, 81, 28);
+		cboProgramFiltering.setBounds(182, 6, 81, 28);
 		
 		
 		panelFiltering.add(cboProgramFiltering);
 		cboProgramFiltering.setModel(new DefaultComboBoxModel<>(new String[] {"-","BSEED", "BSSED", "BSPSY", "BSA", "BSBA", "BSIE", "BSCpE", "BSECE", "BSIT", "BSCS", "BSN"}));
 		cboProgramFiltering.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
-		cboSex.setBounds(248, 13, 76, 28);
+		cboSex.setBounds(272, 6, 76, 28);
 		panelFiltering.add(cboSex);
 		
 		cboSex.setModel(new DefaultComboBoxModel<>(new String[] {"-", "MALE", "FEMALE"}));
@@ -345,7 +342,7 @@ public class StudentManagementSystem extends JFrame {
 		btnSearch.setForeground(Color.WHITE);
 		btnSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		btnSearch.setBackground(Color.GRAY);
-		btnSearch.setBounds(328, 11, 81, 28);
+		btnSearch.setBounds(352, 4, 81, 28);
 		
 		panelFiltering.add(btnSearch);
 		btnClearSearch.addActionListener(new ActionListener() {
@@ -356,12 +353,15 @@ public class StudentManagementSystem extends JFrame {
 		btnClearSearch.setForeground(Color.WHITE);
 		btnClearSearch.setFont(new Font("Segoe UI Black", Font.BOLD, 11));
 		btnClearSearch.setBackground(Color.GRAY);
-		btnClearSearch.setBounds(413, 11, 76, 28);
+		btnClearSearch.setBounds(437, 4, 76, 28);
 		
 		panelFiltering.add(btnClearSearch);
 		
 	} // Methods below here
 	
+	/**
+	 * This methods adds a Records to the Table
+	 */
 	public void addRecord() {
 		
 		String firstName = txtFirstName.getText();
