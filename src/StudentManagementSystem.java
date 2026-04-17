@@ -24,14 +24,15 @@ import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import java.awt.Toolkit;
 
 /**
  * StudentManagementSystem - A simple Swing application to manage student
  * records. Allows adding, updating, deleting, and filtering student
  * information.
  * 
- * Please note that the code generation preference for Swing has been set to init.field
- * for better readability - ken
+ * Please note that the code generation preference for Swing Window Builder has been set to init.field
+ * for better readability, i think its more organized - ken
  */
 public class StudentManagementSystem extends JFrame {
 
@@ -168,6 +169,8 @@ public class StudentManagementSystem extends JFrame {
 	 * Constructor: builds the entire GUI and initializes components.
 	 */
 	public StudentManagementSystem() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(StudentManagementSystem.class.getResource("/images/StudentManagementSystemIcon.png")));
+		setTitle("Student Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1132, 425);
 		contentPane = new JPanel();
