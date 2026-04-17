@@ -177,6 +177,7 @@ public class StudentManagementSystem extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		lblUserProfile.setToolTipText("User profile icon");
 
 		// ==============================================
 		// 1. Initialize and place all Labels
@@ -215,22 +216,27 @@ public class StudentManagementSystem extends JFrame {
 		lblProgram.setForeground(new Color(0, 0, 205));
 		lblProgram.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		lblProgram.setBounds(16, 289, 120, 21);
+		lblTotalRecords.setToolTipText("Total number of student records in the table");
 
 		lblTotalRecords.setFont(new Font("Segoe UI Semibold", Font.BOLD, 15));
 		lblTotalRecords.setBounds(808, 327, 120, 14);
 
 		lblStick.setFont(new Font("Segoe UI Semibold", Font.BOLD, 40));
 		lblStick.setBounds(943, 314, 11, 54);
+		lblLastUpdated.setToolTipText("Timestamp of last add, update, or delete action");
 
 		lblLastUpdated.setFont(new Font("Segoe UI Semibold", Font.BOLD, 15));
 		lblLastUpdated.setBounds(975, 327, 120, 14);
+		lblRecordsValue.setToolTipText("Total number of student records in the table");
 
 		lblRecordsValue.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		lblRecordsValue.setBounds(855, 345, 48, 23);
+		lblLastUpdatedValue.setToolTipText("Timestamp of last add, update, or delete action");
 		lblLastUpdatedValue.setText("  ");
 
 		lblLastUpdatedValue.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		lblLastUpdatedValue.setBounds(975, 345, 109, 23);
+		lblStudentRecords.setToolTipText("Main student records table");
 
 		lblStudentRecords.setForeground(new Color(0, 0, 0));
 		lblStudentRecords.setFont(new Font("Segoe UI Black", Font.PLAIN, 25));
@@ -244,19 +250,24 @@ public class StudentManagementSystem extends JFrame {
 		lblFilterBy.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 
 		lblRecordsValue.setText(String.valueOf(records));
+		txtMiddleName.setToolTipText("Enter student's middle name (optional)");
 
 		// ==============================================
 		// 2. Text Fields
 		// ==============================================
 		txtMiddleName.setColumns(10);
 		txtMiddleName.setBounds(161, 166, 148, 24);
+		txtFirstName.setToolTipText("Enter student's first name");
 		txtFirstName.setColumns(10);
 		txtFirstName.setBounds(161, 133, 148, 24);
+		txtLastName.setToolTipText("Enter student's last name");
 		txtLastName.setColumns(10);
 		txtLastName.setBounds(161, 101, 148, 24);
+		txtID.setToolTipText("Auto-generated student ID (read-only)");
 		txtID.setEditable(false); // ID is auto-generated, not user-editable
 		txtID.setColumns(10);
 		txtID.setBounds(161, 70, 148, 24);
+		rdbtnMale.setToolTipText("Select Male");
 		rdbtnMale.setSelected(true);
 
 		// ==============================================
@@ -265,9 +276,11 @@ public class StudentManagementSystem extends JFrame {
 		rdbtnMale.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		rdbtnMale.setBounds(95, 199, 109, 23);
 		radioGroup.add(rdbtnMale);
+		rdbtnFemale.setToolTipText("Select Female");
 		rdbtnFemale.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		rdbtnFemale.setBounds(200, 199, 109, 23);
 		radioGroup.add(rdbtnFemale);
+		cboCollege.setToolTipText("Select the student's college");
 
 		// ==============================================
 		// 4. Combo Boxes (Data Entry)
@@ -282,6 +295,7 @@ public class StudentManagementSystem extends JFrame {
 		cboCollege.setModel(new DefaultComboBoxModel<>(new String[] { "COED", "CAS", "CBAA", "COE", "CCS", "CON" }));
 		cboCollege.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		cboCollege.setBounds(161, 240, 148, 28);
+		cboProgram.setToolTipText("Select the student's program (updates based on college)");
 
 		cboProgram.setModel(new DefaultComboBoxModel<>(new String[] { "BSEED", "BSSED" }));
 		cboProgram.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
